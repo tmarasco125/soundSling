@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Controller</title>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="rhizome/rhizome.js"></script>
+    <script src="https://rawgit.com/nexus-js/ui/master/dist/NexusUI.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <script>
+        $(function() {
+            const client = new rhizome.Client()
+
+            // `rhizome.start` is the first function that should be called.
+            // The function inside is executed once the client managed to connect.
+            client.start((err) => {
+                // We want to receive all the messages, so we subscribe to '/'
+                client.send('/sys/subscribe', ['/'])
+            })
+
+            client.on('connected', () => console.log('connected'))
+            client.on('connection lost', () => console.log('connection lost'))
+            client.on('server full', () => console.log('server full'))
+
+            const button = new Nexus.TextButton('#control', {
+                size: [600, 300],
+                text: 'Play some sounds everywhere!'
+            });
+
+
+           
+
+
+            const speakslider = new Nexus.Slider('#speakerlocation', {
+                size: [200, 40],
+                 min: 0,
+                max: 1,
+                step: 0,
+                value: 0
+            });
+               
+
+            //soundslider emmutlates the easing function coming from Performer software
+            const soundslider = new Nexus.Slider('#soundlocation', {
+                size: [200, 40],
+                min: 0,
+                max: 1,
+                step: 0,
+                value: 0,
+            });
+                soundslider.colorize("accent", "#ABB2B9" )
+                soundslider.colorize("fill","#EB984E")
+            
+
+            //Lets See if This Works!
+            function calcGaussian( x,  mean,  spread, scale) {
+               // return (1 / Math.sqrt((2*Math.PI)* spread)) * Math.exp(-Math.pow(x - mean,2) / (2 * spread));
+                return (Math.exp((-1*(x-mean)*(x-mean))/(2*spread * spread))/(spread*Math.sqrt(2* Math.PI))) * scale;
+            }
+
+            var speakerMean = 0.0;
+            var speakerBleed = 1; //1 is maximum overlap of sound from one speaker to the next. More speakers, lower bleed.
+            
+            button.on('change', v => v ? client.send('/playAll', [1]) : '');
+            
+            speakslider.on('change',function (v){
+                speakerMean = v;
+                console.log("Speaker Location:" + speakerMean);
+            });
+
+           //Replace this slider with data coming from Mx easing functions. Scale it from 0-1
+            soundslider.on('change', function (v){//generate amplitude off of curve
+                
+                var ampY = calcGaussian(v, speakerMean, 0.25*speakerBleed, 0.627*speakerBleed);//Make "scale" parameter int a variable that can be set from Max and multiplied by a set number
+               
+                console.log("Sound Loc X:" + v);
+                console.log("Amplitude:" + ampY);//send to Tone Gain node
+                client.send('/curveX', [ampY]);
+                client.send('/regX',[v]);
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div class="interface">
+        <div id="control"></div>
+        <div id ='speakerlocation'></div>
+        <div id='soundlocation'></div>
+    </div>
+</body>
+
+</html>
