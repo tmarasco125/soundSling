@@ -1,8 +1,8 @@
-# rhizome-docker-tutorial
-A quick rhizome and docker tutorial
+# soundSling
+soundSling is a tool that allows for physics-based audio diffusion across many mobile devices.
 
-Jesse Allison & Tate Carson
+Anthony T. Marasco
 LSU Experimental Music & Digital Media (2018)
 
-Instructions: https://app.milanote.com/1ERu7F15x0b57R
+Still in a development phase....
 
