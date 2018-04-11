@@ -3,15 +3,17 @@
    [Anthony T. Marasco - 2018]
 */
 
-var mgr, phoneLoc, nexusDiv1, nexusDiv2, button, slider, client;
+var mgr, nexusDiv1, nexusDiv2, button, slider, client, context;
 var seatClicked = false;
-
+ 
 var speakerMean = 0.;//this is set to be the location chosen by the user at start.
 var speakerBleed = 1.; //1 is maximum overlap of sound from one speaker to the next. More speakers, lower bleed.
 var soundLoc = 0.;
+var phoneLoc = 0.;
 
 //The following actions need to happen onload
 function setup() {
+    context = new AudioContext();
     createCanvas(windowWidth, windowHeight);
     //***************  Nexus UI ******************
     //add NexusUI widgets to the P5 canvas
@@ -37,6 +39,9 @@ function setup() {
             document.getElementById('button').style.display = 'none';
             document.getElementById('slider').style.display = 'none';
             mgr.showScene(PerformancePage);
+            StartAudioContext(Tone.context, '#button').then(function () {
+                console.log("AudioStarted");
+            })
         }
     })
 
@@ -56,6 +61,9 @@ function setup() {
         phoneLoc = v;
         console.log("phoneLoc: "+phoneLoc)
     })
+
+    
+
 //******P5 Graphics Scene Set-Up*************
     //SceneManager library init
     mgr = new SceneManager();
@@ -71,20 +79,25 @@ function setup() {
 
     // `rhizome.start` is the first function that should be called.
     // The function inside is executed once the client managed to connect.
-    client.start((err) => {
+    //init rhizome
+    client = new rhizome.Client()
+
+    // `rhizome.start` is the first function that should be called.
+    // The function inside is executed once the client managed to connect.
+    client.start(function (err) {
         // We want to receive all the messages, so we subscribe to '/'
         // we could have this page only receive certain messages if we wanted to
         client.send('/sys/subscribe', ['/'])
     });
 
     //special websocket client messages, monitoring for issues 
-    client.on('connected', () => console.log('connected'))
-    client.on('connection lost', () => console.log('connection lost'))
-    client.on('server full', () => console.log('server full'))
+    client.on('connected', function () { console.log('connected') })
+    client.on('connection lost', function () { console.log('connection lost') })
+    client.on('server full', function () { console.log('server full') })
 
 
     //listening for specific messages from Rhizome
-    client.on('message', (address, args) => {
+    client.on('message', function (address, args) {
         if (address === '/playAll') {
             play();
         }
@@ -100,9 +113,10 @@ function setup() {
         }
     })
 
-    
+
 
 }
+    
 
 function draw() {
     mgr.draw();
