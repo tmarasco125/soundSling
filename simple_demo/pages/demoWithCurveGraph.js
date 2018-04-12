@@ -1,5 +1,6 @@
 
 /* soundSling Demo Sketch - 1-Axis sound diffusion 
+   - Added graphics to show curve and current sound location
    [Anthony T. Marasco - 2018]
 */
 
@@ -163,7 +164,15 @@ function PerformancePage() {
         var backColor = map(xPos, 0, 1, 0,255);
         // console.log(soundLoc)
         background(backColor);
-        fill(255);
+        noStroke();
+        fill("aqua");
+        ellipse(soundLoc*width, 0.5*height, 100, 100);
+         //draw curve
+        for(var i=0; i<=10;i++){
+        fill("coral")
+        ellipse(i/10 * width, (1-curveCalc[i]) * height, 50,50);
+        
+        }
     }
 
 
