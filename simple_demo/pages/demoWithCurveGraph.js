@@ -140,6 +140,7 @@ function keyPressed() {
 function LandingPage() {
 
     this.setup = function () {
+        Tone.Master.mute = true;
         background("grey");
         for (var i = 1; i <= 11; i++) {
             fill("aqua");
@@ -150,12 +151,12 @@ function LandingPage() {
 
 function PerformancePage() {
     this.enter = function () {
+        Tone.Master.mute = false;
         background(0);
         for (var i = 0; i <= 10; i++) {
             var y = calcGaussian(i/10, speakerMean, 0.25 * speakerBleed, 0.627 * speakerBleed);
             curveCalc[i]=y
         }
-        
     }
 
     this.draw = function () {
