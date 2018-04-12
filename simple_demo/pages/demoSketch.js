@@ -102,10 +102,10 @@ function setup() {
             play();
         }
 
-        // if (address === '/speakerBleed') {
-        //     speakerBleed = args[0];
-        //     console.log("Speaker Bleed value: "+ speakerBleed);
-        // }
+         if (address === '/speakerBleed') {
+             speakerBleed = args[0];
+             console.log("Speaker Bleed value: "+ speakerBleed);
+         }
 
         if (address === '/soundLocation') {
             soundLoc = args[0];

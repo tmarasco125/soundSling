@@ -57,9 +57,9 @@
                     window.max.outlet('/triggerDrone', args[0]);
                 }
                 
-                // if(address==='/speakerBleed'){
-                //     window.max.outlet('/speakerBleed', args[0]);
-                // }
+                if(address==='/speakerBleed'){
+                    window.max.outlet('/speakerBleed', args[0]);
+                }
 
                 if (address === '/regX'){
                     window.max.outlet('/regX', args[0]);
@@ -115,12 +115,12 @@
                 client.send('/soundLocation', [data]);
             });
             
-             //Speaker Bleed value
-            // window.max.bindInlet('speakerBleed', function (data) {
-            //     window.max.outlet('Speaker Bleed', data);
-            //     window.max.outlet('Rhizome Status ', client.status());
-            //     client.send('/speakerBleed', [1]);
-            // });
+            //Speaker Bleed value
+            window.max.bindInlet('speakerBleed', function (data) {
+                window.max.outlet('Speaker Bleed', data);
+                window.max.outlet('Rhizome Status ', client.status());
+                client.send('/speakerBleed', [data]);
+            });
         });
 
        
