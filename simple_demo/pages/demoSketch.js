@@ -175,9 +175,11 @@ function PerformancePage() {
 
 
 // **************  Audio Elements *****************
+const player = new Tone.Player("/media/Toy_piano.wav").toMaster();
+////const delay = new Tone.FeedbackDelay(0.5);
+//const reverb = new Tone.Reverb(1);
 
-
-const player = new Tone.Player("/media/tremolo/373785__samulis__solo-violin-tremolo-e5-llvln-trem-e4-v1-rr1.mp3").toMaster();
+//player.chain(delay, reverb, Tone.Master);
 player.volume.value = Tone.gainToDb(slingIt());
 
 
