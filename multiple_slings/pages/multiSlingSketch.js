@@ -73,7 +73,7 @@ function setup() {
 
 
     position.colorize("accent", "#EB984E");
-    position.colorize("fill", "rgba(0,0,0,0.5)");//transparent background for position slider
+    position.colorize("fill", "rgba(0,0,0,0)");//transparent background for position slider
 
     position.on('change', function (v) {
         phoneLocX = v.x;
