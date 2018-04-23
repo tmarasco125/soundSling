@@ -192,18 +192,18 @@ function calcGaussian(x, mean, spread, scale) {
 
 function slingIt() {
 
-    var ampCurveY = calcGaussian(soundLoc, speakerMean, 0.25 * speakerBleed, 0.627 * speakerBleed);//Make "scale" parameter int a variable that can be set from Max and multiplied by a set number
+    var ampCurve = calcGaussian(soundLoc, speakerMean, 0.25 * speakerBleed, 0.627 * speakerBleed);//Make "scale" parameter int a variable that can be set from Max and multiplied by a set number
 
-    if (ampCurveY) {
-        return ampCurveY;
+    if (ampCurve) {
+        return ampCurve;
     } else {
         return 0.;
     }
 
-   // console.log("Amplitude:" + ampCurveY);//send to Tone Gain node
+   // console.log("Amplitude:" + ampCurve);//send to Tone Gain node
    // console.log("speakerBleed: " + speakerBleed);
     // console.log("soundLoc: " + soundLoc);
-    // client.send('/curveX', [ampCurveY]);
+    // client.send('/curveX', [ampCurve]);
     //client.send('/regX', [v]);
    
 
