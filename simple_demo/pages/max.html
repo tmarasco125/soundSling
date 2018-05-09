@@ -53,16 +53,14 @@
                     play();
                 }
 
-                if (address === '/triggerDrone') {
-                    window.max.outlet('/triggerDrone', args[0]);
-                }
+                
                 
                 if(address==='/speakerBleed'){
                     window.max.outlet('/speakerBleed', args[0]);
                 }
 
-                if (address === '/regX'){
-                    window.max.outlet('/regX', args[0]);
+                if (address === '/soundLocation') {
+                    window.max.outlet('/soundLocation', args[0]);
                 }
 
                 if (address === '/locationChosen') {

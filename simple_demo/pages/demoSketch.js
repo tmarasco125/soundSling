@@ -25,11 +25,11 @@ function setup() {
 
     nexusDiv2 = createDiv(`<div id="slider"></div>`);
     nexusDiv2.class("interface");
-    nexusDiv2.style('position', ((windowWidth / 2) - 400)+85, windowHeight/2-30);
+    nexusDiv2.style('position', ((windowWidth / 2) - 505)+65, windowHeight/2-30);
 
     //Build NexusUI Widget, add them to the div
     button = new Nexus.TextButton('#button', {
-        text: 'Tap your location, then click here to start!',
+        text: 'Start!',
         size: [400, 200]
     })
 
@@ -43,12 +43,13 @@ function setup() {
             StartAudioContext(Tone.context, '#button').then(function () {
                 console.log("AudioStarted");
             })
+            
         }
     })
 
     //Build NexusUI Widget, add them to the div
     slider = new Nexus.Slider('#slider', {
-        size: [625, 40],
+        size: [880, 40],
         min: 0,
         max: 1,
         step: 0,
@@ -138,9 +139,9 @@ function LandingPage() {
     this.setup = function () {
         Tone.Master.mute = true;
         background("grey");
-        for (var i = 1; i <= 11; i++) {
+        for (var i = 1; i <= 20; i++) {
             fill("aqua");
-            rect((i * 60)+((windowWidth/2)-400), windowHeight/2-100, 50, 50);
+            rect((i * 45)+((windowWidth/2)-500), windowHeight/2-100, 40, 40);
         }
     }
 }
@@ -168,11 +169,11 @@ function PerformancePage() {
 
 
 // **************  Audio Elements *****************
-const player = new Tone.Player("/media/Toy_piano.wav").toMaster();
-////const delay = new Tone.FeedbackDelay(0.5);
-//const reverb = new Tone.Reverb(1);
+const player = new Tone.Player("/media/templeBell.mp3").toMaster();
+//const delay = new Tone.FeedbackDelay(0.5, 0.10).toMaster();
 
-//player.chain(delay, reverb, Tone.Master);
+
+//player.connect(delay);
 player.volume.value = Tone.gainToDb(slingIt());
 
 
@@ -185,7 +186,6 @@ function play() {
 //************* Slingin'! *****************
 
 function calcGaussian(x, mean, spread, scale) {
-    // return (1 / Math.sqrt((2*Math.PI)* spread)) * Math.exp(-Math.pow(x - mean,2) / (2 * spread));
     return (Math.exp((-1 * (x - mean) * (x - mean)) / (2 * spread * spread)) / (spread * Math.sqrt(2 * Math.PI))) * scale;
 }
 
@@ -199,12 +199,4 @@ function slingIt() {
     } else {
         return 0.;
     }
-
-   // console.log("Amplitude:" + ampCurve);//send to Tone Gain node
-   // console.log("speakerBleed: " + speakerBleed);
-    // console.log("soundLoc: " + soundLoc);
-    // client.send('/curveX', [ampCurve]);
-    //client.send('/regX', [v]);
-   
-
 }

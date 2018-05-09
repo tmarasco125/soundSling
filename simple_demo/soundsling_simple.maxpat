@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 34.0, 79.0, 1372.0, 783.0 ],
+		"rect" : [ 34.0, 79.0, 1174.0, 783.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -38,6 +38,19 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-49",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 90.0, 762.0, 50.0, 22.0 ],
+					"style" : "",
+					"text" : "1."
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-42",
 					"maxclass" : "toggle",
 					"numinlets" : 1,
@@ -56,9 +69,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 540.0, 165.0, 71.0, 22.0 ],
+					"patching_rect" : [ 540.0, 165.0, 79.0, 22.0 ],
 					"style" : "",
-					"text" : "metro 4000"
+					"text" : "metro 500"
 				}
 
 			}
@@ -96,7 +109,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 873.0, 275.0, 72.0, 22.0 ],
+					"patching_rect" : [ 877.0, 221.0, 72.0, 22.0 ],
 					"style" : "",
 					"text" : "loadmess 1"
 				}
@@ -203,9 +216,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 45.0, 207.0, 128.0, 22.0 ],
+					"patching_rect" : [ 45.0, 207.0, 135.0, 22.0 ],
 					"style" : "",
-					"text" : "metro 6000 @active 1"
+					"text" : "metro 12000 @active 1"
 				}
 
 			}
@@ -216,9 +229,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 40.0, 241.0, 61.0, 22.0 ],
+					"patching_rect" : [ 40.0, 241.0, 67.0, 22.0 ],
 					"style" : "",
-					"text" : "0, 1 6000"
+					"text" : "0, 1 12000"
 				}
 
 			}
@@ -237,14 +250,16 @@
 			}
 , 			{
 				"box" : 				{
+					"floatoutput" : 1,
 					"id" : "obj-38",
+					"knobcolor" : [ 0.952941, 0.564706, 0.098039, 1.0 ],
 					"maxclass" : "slider",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 40.0, 391.0, 150.0, 20.0 ],
-					"size" : 1001.0,
+					"patching_rect" : [ 157.875, 608.0, 712.0, 153.0 ],
+					"size" : 1.0,
 					"style" : ""
 				}
 
@@ -415,7 +430,7 @@
 					"numinlets" : 7,
 					"numoutlets" : 7,
 					"outlettype" : [ "", "", "", "", "", "", "" ],
-					"patching_rect" : [ 490.875, 413.0, 381.0, 22.0 ],
+					"patching_rect" : [ 447.5, 412.0, 381.0, 22.0 ],
 					"style" : "",
 					"text" : "route /playAll /triggerDrone /stopDrone /regX /curveX /locationChosen"
 				}
@@ -801,17 +816,15 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-35", 0 ],
-					"midpoints" : [ 49.5, 386.0, 27.0, 386.0, 27.0, 422.0, 49.5, 422.0 ],
-					"order" : 0,
-					"source" : [ "obj-39", 0 ]
+					"destination" : [ "obj-49", 1 ],
+					"source" : [ "obj-38", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-38", 0 ],
-					"order" : 1,
+					"destination" : [ "obj-35", 0 ],
+					"midpoints" : [ 49.5, 386.0, 27.0, 386.0, 27.0, 422.0, 49.5, 422.0 ],
 					"source" : [ "obj-39", 0 ]
 				}
 
@@ -833,7 +846,15 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-28", 0 ],
-					"midpoints" : [ 49.5, 527.0, 243.0, 527.0, 243.0, 203.0, 267.0, 203.0 ],
+					"order" : 0,
+					"source" : [ "obj-41", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-38", 0 ],
+					"order" : 1,
 					"source" : [ "obj-41", 0 ]
 				}
 
@@ -841,15 +862,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-33", 0 ],
-					"order" : 0,
-					"source" : [ "obj-42", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-36", 0 ],
-					"order" : 1,
 					"source" : [ "obj-42", 0 ]
 				}
 

@@ -150,12 +150,12 @@ function setup() {
         if (address === '/soundLocation') {
             if (oddResult == 1 && args[0] == 1) {
                 soundLoc[1] = args[1];//second element of the array, data stream
-
+                console.log("Sound Location: " +args[0] + soundLoc[1]);
             } else {
                 soundLoc[0] = args[1];
-
+                console.log("Sound Location: "+args[1] + soundLoc[0]);
             }
-            //console.log("Sound Location: " + soundLoc);
+           
         }
 
 
@@ -208,9 +208,15 @@ function PerformancePage() {
         var xPos = slingIt();
         player.volume.value = Tone.gainToDb(xPos);
         var backColor = map(xPos, 0, 1, 0, 255);
-        // console.log(soundLoc)
-        background(backColor);
-        fill(255);
+         
+        if (oddResult ==1){
+            background(backColor);
+            fill(255);
+        } else if (oddResult ==0){
+            background(backColor, 0, backColor);
+            fill(255);
+        }
+        
     }
 
 }
@@ -221,17 +227,18 @@ const player = new Tone.Player({
     "url": "/media/Toy_piano.wav",
     "loop": true
 }).toMaster();
+
 const player2 = new Tone.Player({
     "url": "/media/templeBell.mp3",
     "loop": true
 }).toMaster();
 
-const delay = new Tone.FeedbackDelay(0.5);
+const delay = new Tone.FeedbackDelay(0.5).toMaster();
 const reverb = new Tone.Reverb(0.5);
 
 
 
-player.chain(delay, reverb, Tone.Master);
+player.connect(delay);
 player.volume.value = Tone.gainToDb(slingIt());
 
 player2.connect(delay);
@@ -268,7 +275,7 @@ function calcGaussian(x, mean, spread, scale) {
 
 function slingIt() {
 
-    var ampCurve = calcGaussian(soundLoc, speakerMean, 0.25 * speakerBleed[oddResult], 0.627 * speakerBleed[oddResult]);//Make "scale" parameter int a variable that can be set from Max and multiplied by a set number
+    var ampCurve = calcGaussian(soundLoc[oddResult], speakerMean, 0.25 * speakerBleed[oddResult], 0.627 * speakerBleed[oddResult]);//Make "scale" parameter int a variable that can be set from Max and multiplied by a set number
 
     if (ampCurve) {
         return ampCurve;

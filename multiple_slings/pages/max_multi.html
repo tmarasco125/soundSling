@@ -51,15 +51,15 @@
                 }
                 
                 if (address === '/soundLocation') {
-                    window.max.outlet('/soundLocation', args[1]);
+                    window.max.outlet('/soundLocation', args.join(" "));
                 }
                 
                 if(address==='/speakerBleed'){
-                    window.max.outlet('/speakerBleed', args[1]);
+                    window.max.outlet('/speakerBleed', args);
                 }
                 
                 if (address === '/locationChosen') {
-                    window.max.outlet('/locationChosen', args[0]);
+                    window.max.outlet('/locationChosen', args);
                 }
             });
 
@@ -85,8 +85,10 @@
             //Easing function movement data!
              window.max.bindInlet('soundLocation', function (data) {
                 window.max.outlet('Sound Location', data);
+                var toSend = data.split(" ");
+                window.max.outlet('Sound Location Array', toSend.join(" "));
                 window.max.outlet('Rhizome Status ', client.status());
-                client.send('/soundLocation', [data]);
+                client.send('/soundLocation', toSend);
             });
             
              
