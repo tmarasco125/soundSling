@@ -85,10 +85,10 @@
             //Easing function movement data!
              window.max.bindInlet('soundLocation', function (data) {
                 window.max.outlet('Sound Location', data);
-                var toSend = data.split(" ");
-                window.max.outlet('Sound Location Array', toSend.join(" "));
+                var toSendLoc = data.split(" ");
+                window.max.outlet('Sound Location Array', toSendLoc.join(" "));
                 window.max.outlet('Rhizome Status ', client.status());
-                client.send('/soundLocation', toSend);
+                client.send('/soundLocation', toSendLoc);
             });
             
              
@@ -97,8 +97,10 @@
             //Speaker Bleed values change to immitate from above
             window.max.bindInlet('speakerBleed', function (data) {
                 window.max.outlet('Speaker Bleed', data);
+                var toSendBleed = data.split(" ");
+                window.max.outlet('Speaker Bleed Array', toSendBleed.join(" "));
                 window.max.outlet('Rhizome Status ', client.status());
-                client.send('/speakerBleed', [data]);
+                client.send('/speakerBleed', toSendBleed);
             });
 
            

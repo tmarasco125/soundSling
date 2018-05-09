@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 162.0, 83.0, 760.0, 783.0 ],
+		"rect" : [ 349.0, 83.0, 760.0, 783.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -38,6 +38,19 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-33",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 916.0, 140.0, 43.0, 22.0 ],
+					"style" : "",
+					"text" : "play 0"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-59",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -45,7 +58,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 954.0, 656.0, 248.0, 22.0 ],
 					"style" : "",
-					"text" : "soundLocation \"2 1.00\""
+					"text" : "soundLocation \"0 0.54\""
 				}
 
 			}
@@ -71,7 +84,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 933.5, 610.0, 177.0, 22.0 ],
 					"style" : "",
-					"text" : "sprintf soundLocation \\\"2 %.2f\\\""
+					"text" : "sprintf soundLocation \\\"0 %.2f\\\""
 				}
 
 			}
@@ -281,9 +294,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 985.0, 231.0, 128.0, 22.0 ],
+					"patching_rect" : [ 985.0, 231.0, 135.0, 22.0 ],
 					"style" : "",
-					"text" : "metro 6000 @active 1"
+					"text" : "metro 10000 @active 1"
 				}
 
 			}
@@ -683,7 +696,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 731.5, 540.0, 50.0, 62.0 ],
 					"style" : "",
-					"text" : "\"Rhizome Status \" started"
+					"text" : "\"Sound Location\" \"0 0.65\""
 				}
 
 			}
@@ -696,7 +709,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 579.5, 571.0, 50.0, 22.0 ],
 					"style" : "",
-					"text" : "\"2 0.48\""
+					"text" : "\"0 0.51\""
 				}
 
 			}
@@ -1066,6 +1079,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-26", 0 ],
 					"source" : [ "obj-31", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"source" : [ "obj-33", 0 ]
 				}
 
 			}

@@ -6,7 +6,7 @@
 var mgr, nexusDiv1, nexusDiv2, button, position, client, context;
 var currentBleed;
 var curveCalc = [];
-var oddResult = 1;
+var row = 1;
 var speakerMean = 0.;//this is set to be the location chosen by the user at start.
 var speakerBleed = [1, 1]; //1 is maximum overlap of sound from one speaker to the next. More speakers, lower bleed.
 
@@ -50,7 +50,7 @@ function setup() {
             mgr.showScene(PerformancePage);
             StartAudioContext(Tone.context, '#button').then(function () {
                 console.log("AudioStarted");
-                reverb.generate();
+                //reverb.generate();
             })
 
         }
@@ -82,7 +82,7 @@ function setup() {
         console.log("phoneLocX: " + phoneLocX)
         console.log("phoneLocY: " + phoneLocY)
         console.log("result is" + result);
-        oddResult = result;
+        row = result;
     });
 
    //start as true
@@ -134,13 +134,10 @@ function setup() {
 
 
         if (address === '/speakerBleed') {
-            if (oddResult == 1 && args[0] == 1) {
-                speakerBleed[1] = args[1];//second element of the array, data stream
+            
+                speakerBleed[args[0]] = args[1];//second element of the array, data stream
                 
-            } else {
-                speakerBleed[0] = args[1];
-                
-            }
+           
 
             //console.log("Speaker Bleed value: " + speakerBleed);
         }
@@ -148,13 +145,8 @@ function setup() {
 
 
         if (address === '/soundLocation') {
-            if (oddResult == 1 && args[0] == 1) {
-                soundLoc[1] = args[1];//second element of the array, data stream
-                console.log("Sound Location: " +args[0] + soundLoc[1]);
-            } else {
-                soundLoc[0] = args[1];
-                console.log("Sound Location: "+args[1] + soundLoc[0]);
-            }
+            
+                soundLoc[args[0]] = args[1];
            
         }
 
@@ -199,7 +191,7 @@ function PerformancePage() {
         Tone.Master.mute = false;
         background(0);
         for (var i = 0; i <= 10; i++) {
-            var y = calcGaussian(i / 10, speakerMean, 0.25 * speakerBleed[oddResult], 0.627 * speakerBleed[oddResult]);
+            var y = calcGaussian(i / 10, speakerMean, 0.25 * speakerBleed[row], 0.627 * speakerBleed[row]);
             curveCalc[i] = y
         }
     }
@@ -207,12 +199,13 @@ function PerformancePage() {
     this.draw = function () {
         var xPos = slingIt();
         player.volume.value = Tone.gainToDb(xPos);
+        player2.volume.value = Tone.gainToDb(xPos);
         var backColor = map(xPos, 0, 1, 0, 255);
          
-        if (oddResult ==1){
+        if (row ==1){
             background(backColor);
             fill(255);
-        } else if (oddResult ==0){
+        } else if (row ==0){
             background(backColor, 0, backColor);
             fill(255);
         }
@@ -233,24 +226,24 @@ const player2 = new Tone.Player({
     "loop": true
 }).toMaster();
 
-const delay = new Tone.FeedbackDelay(0.5).toMaster();
-const reverb = new Tone.Reverb(0.5);
+const delay = new Tone.FeedbackDelay(0.5);
 
 
 
-player.connect(delay);
+
+player.chain(delay,Tone.Master);
 player.volume.value = Tone.gainToDb(slingIt());
 
-player2.connect(delay);
+player2.toMaster();
 player2.volume.value = Tone.gainToDb(slingIt());
 
 function play(number) {
-    if (oddResult == 1) {
+    if (row == 1) {
         if (number == 1) {
             player.start();
         } else if (number == 0){
             player.stop();
-            player2.stop();
+           
         }
     } else {
         if (number == 2) {
@@ -258,7 +251,7 @@ function play(number) {
 
         } else if (number ==0) {
             player2.stop();
-            player1.stop();
+           
         }
     }
 
@@ -275,7 +268,7 @@ function calcGaussian(x, mean, spread, scale) {
 
 function slingIt() {
 
-    var ampCurve = calcGaussian(soundLoc[oddResult], speakerMean, 0.25 * speakerBleed[oddResult], 0.627 * speakerBleed[oddResult]);//Make "scale" parameter int a variable that can be set from Max and multiplied by a set number
+    var ampCurve = calcGaussian(soundLoc[row], speakerMean, 0.25 * speakerBleed[row], 0.627 * speakerBleed[row]);
 
     if (ampCurve) {
         return ampCurve;
