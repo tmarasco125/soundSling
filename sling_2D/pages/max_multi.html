@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rhizome/Max Communicator: Multi-Sling version</title>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="rhizome/rhizome.js"></script>
+    <script src="js/lodash.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <script>
+        var client; 
+
+        $(function() {//$ is part of jquery. This waits until the page is loaded until it starts running the below
+            //code. This lets you wait until the Max patch is opened before we start to our audience's phones.
+            
+            
+            //Starts communication with max
+            window.max.outlet('INIT Rhizome', rhizome.Client.isSupported());
+            //init rhizome 
+            client = new rhizome.Client();
+            window.max.outlet('Rhizome Status ', client.status());
+         
+
+            // `rhizome.start` is the first function that should be called. This is subscribing to ALL messages.
+            // The function inside is executed once the client managed to connect.
+            client.start(function(err) {
+                window.max.outlet('Rhizome Start Status ', client.status());
+                client.send('/sys/subscribe', ['/'])
+            });
+            
+
+            //Callback functions that run as watchdogs.
+            //special websocket client messages 
+            client.on('connected', function() {
+                window.max.outlet('connected')
+            });
+            client.on('connection lost', function() {
+                window.max.outlet('connection lost')
+            });
+            client.on('server full', function() {
+                window.max.outlet('server full');
+            });
+
+          //Any message Rhizome receives
+            // Any message you want to respond to
+
+            client.on('message', function(address, args) {
+                if (address === '/play') {
+                    window.max.outlet('/play', args[0]);//this is where Rhizome passes it to Max, and passes it
+                    //OUT of JWeb object.
+                }
+                
+                if (address === '/soundLocation') {
+                    window.max.outlet('/soundLocation', args.join(" "));
+                }
+                
+                if(address==='/speakerBleed'){
+                    window.max.outlet('/speakerBleed', args);
+                }
+                
+                if (address === '/locationChosen') {
+                    window.max.outlet('/locationChosen', args);
+                }
+            });
+
+
+  //************ IMPORTANT*************
+
+      //Looking at things you send INTO JWeb object in Max
+            // Any max messages you want to respond to:
+
+            // // Example of sending toggle data in
+            window.max.bindInlet('play', function(data) {
+                window.max.outlet('playing cue!', data);
+                 
+                     client.send('/play', [data]);
+                
+             });
+
+            
+
+           
+
+            
+            //Easing function movement data!
+             window.max.bindInlet('soundLocation', function (data) {
+                window.max.outlet('Sound Location', data);
+                var toSendLoc = data.split(" ");
+                window.max.outlet('Sound Location Array', toSendLoc.join(" "));
+                window.max.outlet('Rhizome Status ', client.status());
+                client.send('/soundLocation', toSendLoc);
+            });
+            
+             
+            //Explain how messages are formated from Max here
+
+            //Speaker Bleed values change to immitate from above
+            window.max.bindInlet('speakerBleed', function (data) {
+                window.max.outlet('Speaker Bleed', data);
+                var toSendBleed = data.split(" ");
+                window.max.outlet('Speaker Bleed Array', toSendBleed.join(" "));
+                window.max.outlet('Rhizome Status ', client.status());
+                client.send('/speakerBleed', toSendBleed);
+            });
+
+           
+             
+        });
+
+       
+    </script>
+
+
+</head>
+
+<body>
+
+<p>Slingin' Multiple Audio Files!</p>
+
+
+
+</body>
+
+</html>

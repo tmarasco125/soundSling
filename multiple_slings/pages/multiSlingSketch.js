@@ -4,7 +4,7 @@
 */
 
 var mgr, nexusDiv1, nexusDiv2, button, position, client, context;
-var currentBleed;
+
 var curveCalc = [];
 var row = 1;
 var speakerMean = 0.;//this is set to be the location chosen by the user at start.
@@ -79,13 +79,12 @@ function setup() {
         phoneLocX = v.x;
         phoneLocY = Math.floor(((1-v.y ) * 7.99999)+1);//flips Nexus slider Y value so row  is at the front of the hall/top of seating diagram
         result = isOdd(phoneLocY);
-        console.log("phoneLocX: " + phoneLocX)
-        console.log("phoneLocY: " + phoneLocY)
-        console.log("result is" + result);
+        //console.log("phoneLocX: " + phoneLocX)
+        //console.log("phoneLocY: " + phoneLocY)
+        //console.log("result is" + result);
         row = result;
     });
 
-   //start as true
 
     function isOdd(num) {
         return (num % 2);
@@ -107,7 +106,7 @@ function setup() {
     // `rhizome.start` is the first function that should be called.
     // The function inside is executed once the client managed to connect.
     //init rhizome
-    client = new rhizome.Client()
+   // client = new rhizome.Client()
 
     // `rhizome.start` is the first function that should be called.
     // The function inside is executed once the client managed to connect.
@@ -136,9 +135,6 @@ function setup() {
         if (address === '/speakerBleed') {
             
                 speakerBleed[args[0]] = args[1];//second element of the array, data stream
-                
-           
-
             //console.log("Speaker Bleed value: " + speakerBleed);
         }
 
@@ -147,14 +143,9 @@ function setup() {
         if (address === '/soundLocation') {
             
                 soundLoc[args[0]] = args[1];
-           
         }
 
-
     })
-
-
-
 }
 
 
@@ -217,7 +208,7 @@ function PerformancePage() {
 
 // **************  Audio Elements *****************
 const player = new Tone.Player({
-    "url": "/media/Toy_piano.wav",
+    "url": "/media/Indian_Bell.mp3",
     "loop": true
 }).toMaster();
 
@@ -226,12 +217,12 @@ const player2 = new Tone.Player({
     "loop": true
 }).toMaster();
 
-const delay = new Tone.FeedbackDelay(0.5);
+//const delay = new Tone.FeedbackDelay(0.5);
 
 
 
 
-player.chain(delay,Tone.Master);
+//player.chain(delay,Tone.Master);
 player.volume.value = Tone.gainToDb(slingIt());
 
 player2.toMaster();
@@ -242,16 +233,14 @@ function play(number) {
         if (number == 1) {
             player.start();
         } else if (number == 0){
-            player.stop();
-           
+            player.stop();     
         }
     } else {
         if (number == 2) {
             player2.start();
 
         } else if (number ==0) {
-            player2.stop();
-           
+            player2.stop();    
         }
     }
 

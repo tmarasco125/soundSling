@@ -10,9 +10,9 @@ WORKDIR /usr/src/app
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
-COPY package*.json ./
+# COPY package*.json ./
 
-RUN npm install -g rhizome-server
+RUN npm install -g rhizome-server --unsafe-perm=true
 # If you are building your code for production
 # RUN npm install --only=production
 
@@ -28,4 +28,4 @@ EXPOSE 8001:8000
 EXPOSE 9001:9000/UDP
 
 # Run the application.
-CMD ["npm", "start"]
+CMD ["rhizome", "config"]

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Rhizome/Max Communicator</title>
+    <title>SoundSling/Max Communicator</title>
     <script src="js/jquery-2.1.0.min.js"></script>
     <script src="rhizome/rhizome.js"></script>
     <script src="js/lodash.min.js"></script>
@@ -26,7 +26,7 @@
             // `rhizome.start` is the first function that should be called. This is subscribing to ALL messages.
             // The function inside is executed once the client managed to connect.
             client.start(function(err) {
-                window.max.outlet('Rhizome Start Status ', client.status());
+                window.max.outlet('SoundSling Start Status ', client.status());
                 client.send('/sys/subscribe', ['/'])
             });
             
@@ -43,7 +43,7 @@
                 window.max.outlet('server full');
             });
 
-          //Any message Rhizome receives
+          //Any message the Rhizome server receives
             // Any message you want to respond to
 
             client.on('message', function(address, args) {
@@ -67,16 +67,11 @@
                     window.max.outlet('/locationChosen', args[0]);
                 }
 
-                if (address === '/curveX'){
-                    window.max.outlet('/curveX', args[0]);
-                }
+                
             });
 
 
-            var button = new Nexus.TextButton('#bigButton', {
-                text: 'Play some sounds!',
-                size: [400, 400]
-            })
+            
 
 
 
@@ -102,21 +97,21 @@
 
             window.max.bindInlet('playAll', function(data) {
                 window.max.outlet('Play YIT!', data);
-                window.max.outlet('Rhizome Status ', client.status());
+                window.max.outlet('SoundSling Status ', client.status());
                 client.send('/playAll', [1]);
             });
             
             //Easing function movement data!
              window.max.bindInlet('soundLocation', function (data) {
                 window.max.outlet('Sound Location', data);
-                window.max.outlet('Rhizome Status ', client.status());
+                window.max.outlet('SoundSling Status ', client.status());
                 client.send('/soundLocation', [data]);
             });
             
             //Speaker Bleed value
             window.max.bindInlet('speakerBleed', function (data) {
                 window.max.outlet('Speaker Bleed', data);
-                window.max.outlet('Rhizome Status ', client.status());
+                window.max.outlet('SoundSling Status ', client.status());
                 client.send('/speakerBleed', [data]);
             });
         });
@@ -131,16 +126,8 @@
 
     
 
-    <button onclick="client.send('/playAll', [1])">playAll</button>
-
-    <button onclick="client.send('/triggerBeginning', [1])">Beginning</button>
-    <button onclick="client.send('/nextChord')">Next Chord</button>
-    <button onclick="client.send('/triggerEnding')">Ending</button>
-
-    <div class="interface">
-        <div id="bigButton"></div>
-
-    </div>
+<h1>SoundSling</h1>
+<h3>Ready to Sling!</h3>
 
 </body>
 

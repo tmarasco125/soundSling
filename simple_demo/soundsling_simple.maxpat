@@ -69,9 +69,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 540.0, 165.0, 79.0, 22.0 ],
+					"patching_rect" : [ 540.0, 165.0, 71.0, 22.0 ],
 					"style" : "",
-					"text" : "metro 500"
+					"text" : "metro 1000"
 				}
 
 			}
@@ -216,9 +216,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 45.0, 207.0, 135.0, 22.0 ],
+					"patching_rect" : [ 45.0, 207.0, 128.0, 22.0 ],
 					"style" : "",
-					"text" : "metro 12000 @active 1"
+					"text" : "metro 6000 @active 1"
 				}
 
 			}
@@ -229,9 +229,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 40.0, 241.0, 67.0, 22.0 ],
+					"patching_rect" : [ 40.0, 241.0, 61.0, 22.0 ],
 					"style" : "",
-					"text" : "0, 1 12000"
+					"text" : "0, 1 6000"
 				}
 
 			}
@@ -341,7 +341,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 894.0, 554.0, 50.0, 22.0 ],
 					"style" : "",
-					"text" : "4"
+					"text" : "3"
 				}
 
 			}
@@ -862,6 +862,15 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-33", 0 ],
+					"order" : 0,
+					"source" : [ "obj-42", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-36", 0 ],
+					"order" : 1,
 					"source" : [ "obj-42", 0 ]
 				}
 

@@ -49,7 +49,7 @@ function setup() {
 
     //Build NexusUI Widget, add them to the div
     slider = new Nexus.Slider('#slider', {
-        size: [880, 40],
+        size: [430, 40],
         min: 0,
         max: 1,
         step: 0,
@@ -82,7 +82,7 @@ function setup() {
     // `rhizome.start` is the first function that should be called.
     // The function inside is executed once the client managed to connect.
     //init rhizome
-    client = new rhizome.Client()
+    //client = new rhizome.Client()
 
     // `rhizome.start` is the first function that should be called.
     // The function inside is executed once the client managed to connect.
@@ -138,8 +138,8 @@ function LandingPage() {
 
     this.setup = function () {
         Tone.Master.mute = true;
-        background("grey");
-        for (var i = 1; i <= 20; i++) {
+        background("green");
+        for (var i = 1; i <= 10; i++) {
             fill("aqua");
             rect((i * 45)+((windowWidth/2)-500), windowHeight/2-100, 40, 40);
         }
