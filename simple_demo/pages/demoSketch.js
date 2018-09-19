@@ -1,5 +1,5 @@
 
-/* soundSling Demo Sketch - 1-Axis sound diffusion 
+/* SoundSling.Single example - 1-Axis sound diffusion 
    [Anthony T. Marasco - 2018]
 */
 
@@ -22,10 +22,10 @@ function setup() {
     nexusDiv1 = createDiv(`<div id="button"></div>`);
     nexusDiv1.class("interface");
     nexusDiv1.style('position', windowWidth/2-200, windowHeight/2+100);
-
+    
     nexusDiv2 = createDiv(`<div id="slider"></div>`);
     nexusDiv2.class("interface");
-    nexusDiv2.style('position', ((windowWidth / 2) - 505)+65, windowHeight/2-30);
+    nexusDiv2.style('position', ((windowWidth / 2) - 505)+165, windowHeight/2-220);
 
     //Build NexusUI Widget, add them to the div
     button = new Nexus.TextButton('#button', {
@@ -49,15 +49,18 @@ function setup() {
 
     //Build NexusUI Widget, add them to the div
     slider = new Nexus.Slider('#slider', {
-        size: [430, 40],
+        size: [720, 70],
         min: 0,
         max: 1,
         step: 0,
         value: 0
     });
 
-    slider.colorize("accent", "#EB984E");
+  
+    slider.colorize("accent", "gold");
     slider.colorize("fill", "#FFFFFF");
+    button.colorize("fill", "#708090");
+    
 
     slider.on('change', function (v) {
         phoneLoc = v;
@@ -106,12 +109,12 @@ function setup() {
 
          if (address === '/speakerBleed') {
              speakerBleed = args[0];
-             console.log("Speaker Bleed value: "+ speakerBleed);
+            //  console.log("Speaker Bleed value: "+ speakerBleed);
          }
 
         if (address === '/soundLocation') {
             soundLoc = args[0];
-            console.log("Sound Location: " + soundLoc);
+            // console.log("Sound Location: " + soundLoc);
         }
     })
 
@@ -138,10 +141,15 @@ function LandingPage() {
 
     this.setup = function () {
         Tone.Master.mute = true;
-        background("green");
+        
+        background(color(242, 242, 242));
         for (var i = 1; i <= 10; i++) {
-            fill("aqua");
-            rect((i * 45)+((windowWidth/2)-500), windowHeight/2-100, 40, 40);
+            fill(191, 111, 111);
+            stroke(37);
+            strokeWeight(3);
+            strokeJoin(BEVEL);
+
+            rect((i * 75)+((windowWidth/2)-430), windowHeight/2-300, 70, 70);
         }
     }
 }

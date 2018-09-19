@@ -32,14 +32,13 @@ function setup() {
 
     //Build NexusUI Widget, add them to the div
     button = new Nexus.TextButton('#button', {
-        text: 'Start!',
-        size: [400, 200],
+        text: 'Start',
+        size: [300, 100],
         textSize: 14,
-
-    })
-    button.colorize("fill", "#96016e");
+    });
+    button.colorize("fill", "#708090");
     button.colorize("light", "#FFF");
-
+    
     button.on('change', function (v) {
         if (v) {
             client.send("/locationChosen", [1]);
@@ -72,16 +71,16 @@ function setup() {
 
 
 
-    position.colorize("accent", "#EB984E");
+    position.colorize("accent", "rgba(218,165,32,0.5)");//slightly transparent indicator
     position.colorize("fill", "rgba(0,0,0,0)");//transparent background for position slider
 
     position.on('change', function (v) {
         phoneLocX = v.x;
         phoneLocY = Math.floor(((1-v.y ) * 7.99999)+1);//flips Nexus slider Y value so row  is at the front of the hall/top of seating diagram
         result = isOdd(phoneLocY);
-        //console.log("phoneLocX: " + phoneLocX)
-        //console.log("phoneLocY: " + phoneLocY)
-        //console.log("result is" + result);
+        // console.log("phoneLocX: " + phoneLocX)
+        // console.log("phoneLocY: " + phoneLocY)
+        // console.log("result is" + result);
         row = result;
     });
 
@@ -167,10 +166,13 @@ function LandingPage() {
 
     this.setup = function () {
         Tone.Master.mute = true;
-        background("lightGrey");
+        background(color(242, 242, 242));
         for (var i = 1; i <= 15; i++) {
             for (var j = 1; j <= 8; j++) {
-                fill("lightBlue");
+                fill(191, 111, 111);
+                stroke(37);
+                strokeWeight(3);
+                strokeJoin(BEVEL);
                 rect((i * 60.5) + ((windowWidth / 2) - 500), (j * 66) + ((windowHeight / 2) - 300), 50, 50);
             }
         }

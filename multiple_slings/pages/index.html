@@ -13,12 +13,38 @@
   <script src="js/StartAudioContext.js"></script>
   <script src="multiSlingSketch.js"></script>
   <link rel="stylesheet" type="text/css" href="css/styles.css" />
- 
+<link href="https://fonts.googleapis.com/css?family=Lalezar|Monoton|Share" rel="stylesheet">
 </head>
 
 <body>
+  <div id="myAlert" class="overlay">
 
- 
+    <div class="overlay-content" onclick="closeNav()">
+      <h2>Welcome to SoundSling</h2>
+      <p>
+        Move the indicator dot to select the seat you are sitting in. The top of the page represents the stage, and the bottom represents the back of the hall.
+      </p>
+      <p>
+        When you are done, press 'Start' to begin.
+      </p>
+      <p>Tap the screen to get started.</p>
+
+    </div>
+
+
+
+
+
+  </div>
+
+  <script>
+
+    function closeNav() {
+      document.getElementById("myAlert").style.width = "0%";
+    }
+
+
+  </script>
 </body>
 
 </html>

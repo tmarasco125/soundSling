@@ -18,13 +18,13 @@
             window.max.outlet('INIT Rhizome', rhizome.Client.isSupported());
             //init rhizome 
             client = new rhizome.Client();
-            window.max.outlet('Rhizome Status ', client.status());
+            window.max.outlet('Server Status ', client.status());
          
 
             // `rhizome.start` is the first function that should be called. This is subscribing to ALL messages.
             // The function inside is executed once the client managed to connect.
             client.start(function(err) {
-                window.max.outlet('Rhizome Start Status ', client.status());
+                window.max.outlet('SoundSling 2D Start Status ', client.status());
                 client.send('/sys/subscribe', ['/'])
             });
             
@@ -50,14 +50,19 @@
                     //OUT of JWeb object.
                 }
                 
-                if (address === '/soundLocation') {
-                    window.max.outlet('/soundLocation', args.join(" "));
+                if (address === '/soundLocationX') {
+                    window.max.outlet('/soundLocationX', args.join(" "));
                 }
-                
+                if (address === '/soundLocationY') {
+                    window.max.outlet('/soundLocationY', args.join(" "));
+                }
+
                 if(address==='/speakerBleed'){
                     window.max.outlet('/speakerBleed', args);
                 }
-                
+
+               
+
                 if (address === '/locationChosen') {
                     window.max.outlet('/locationChosen', args);
                 }
@@ -82,15 +87,23 @@
            
 
             
-            //Easing function movement data!
-             window.max.bindInlet('soundLocation', function (data) {
-                window.max.outlet('Sound Location', data);
+            //Easing function movement data - X axis!
+             window.max.bindInlet('soundLocationX', function (data) {
+                window.max.outlet('Sound Location - X location', data);
                 var toSendLoc = data.split(" ");
                 window.max.outlet('Sound Location Array', toSendLoc.join(" "));
-                window.max.outlet('Rhizome Status ', client.status());
-                client.send('/soundLocation', toSendLoc);
+                window.max.outlet('Server Status ', client.status());
+                client.send('/soundLocationX', toSendLoc);
             });
             
+             //Easing function movement data - Y axis!
+            window.max.bindInlet('soundLocationY', function (data) {
+                window.max.outlet('Sound Location - Y location', data);
+                var toSendLoc = data.split(" ");
+                window.max.outlet('Sound Location Array', toSendLoc.join(" "));
+                window.max.outlet('Server Status ', client.status());
+                client.send('/soundLocationY', toSendLoc);
+            });
              
             //Explain how messages are formated from Max here
 
@@ -99,7 +112,7 @@
                 window.max.outlet('Speaker Bleed', data);
                 var toSendBleed = data.split(" ");
                 window.max.outlet('Speaker Bleed Array', toSendBleed.join(" "));
-                window.max.outlet('Rhizome Status ', client.status());
+                window.max.outlet('Server Status ', client.status());
                 client.send('/speakerBleed', toSendBleed);
             });
 
@@ -114,8 +127,8 @@
 </head>
 
 <body>
-
-<p>Slingin' Multiple Audio Files!</p>
+<h1>SoundSling</h1>
+<h3>Ready to Sling in Two Directions! Check the Max console to see that the server has started.</h3>
 
 
 

@@ -1,16 +1,20 @@
 
-/* soundSling Demo Sketch - Multiple Slings, 1-Axis sound diffusion 
+/* SoundSling 2D Demo Sketch - Multiple Slings, 2-Axis sound diffusion 
    [Anthony T. Marasco - 2018]
 */
 
 var mgr, nexusDiv1, nexusDiv2, button, position, client, context;
 
-var curveCalc = [];
+var curveCalcX = [];
+var curveCalcY = [];
 var row = 1;
-var speakerMean = 0.;//this is set to be the location chosen by the user at start.
+var speakerMeanX = 0.;//this is set to be the location chosen by the user at start.
+var speakerMeanY = 0.;//this is set to be the location chosen by the user at start.
+
 var speakerBleed = [1, 1]; //1 is maximum overlap of sound from one speaker to the next. More speakers, lower bleed.
 
 var soundLoc = [0., 0.];
+var soundLocY = [0., 0.];
 var phoneLocX = 0.;
 var phoneLocY = 0.;
 
@@ -43,7 +47,8 @@ function setup() {
     button.on('change', function (v) {
         if (v) {
             client.send("/locationChosen", [1]);
-            speakerMean = phoneLocX;
+            speakerMeanX = phoneLocX;
+            speakerMeanY = phoneLocY;
 
             document.getElementById('button').style.display = 'none';
             document.getElementById('slider').style.display = 'none';
@@ -77,18 +82,20 @@ function setup() {
 
     position.on('change', function (v) {
         phoneLocX = v.x;
-        phoneLocY = Math.floor(((1-v.y ) * 7.99999)+1);//flips Nexus slider Y value so row  is at the front of the hall/top of seating diagram
-        result = isOdd(phoneLocY);
+        //do I need .floor for y?
+        phoneLocY = ((1-v.y ) * 7.99999)+1;//flips Nexus slider Y value so row  is at the front of the hall/top of seating diagram
+        
+        //result = isOdd(phoneLocY);
         //console.log("phoneLocX: " + phoneLocX)
         //console.log("phoneLocY: " + phoneLocY)
         //console.log("result is" + result);
-        row = result;
+        //row = result;
     });
 
 
-    function isOdd(num) {
-        return (num % 2);
-    };
+    // function isOdd(num) {
+    //     return (num % 2);
+    // };
 
     //******P5 Graphics Scene Set-Up*************
     //SceneManager library init
@@ -182,8 +189,10 @@ function PerformancePage() {
         Tone.Master.mute = false;
         background(0);
         for (var i = 0; i <= 10; i++) {
-            var y = calcGaussian(i / 10, speakerMean, 0.25 * speakerBleed[row], 0.627 * speakerBleed[row]);
-            curveCalc[i] = y
+            var x = calcGaussian(i / 10, speakerMeanX, 0.25 * speakerBleed[row], 0.627 * speakerBleed[row]);
+            var y = calcGaussian(i / 10, speakerMeanY, 0.25 * speakerBleed[row], 0.627 * speakerBleed[row]);
+            curveCalcX[i] = x;
+            curveCalcY[i] = y;
         }
     }
 
@@ -255,12 +264,13 @@ function calcGaussian(x, mean, spread, scale) {
 }
 
 
-function slingIt() {
+function slingIt2D() {
 
-    var ampCurve = calcGaussian(soundLoc[row], speakerMean, 0.25 * speakerBleed[row], 0.627 * speakerBleed[row]);
+    var ampCurveOnX = calcGaussian(soundLoc[row], speakerMean, 0.25 * speakerBleed[row], 0.627 * speakerBleed[row]);
+    var ampCuvreOnY
 
-    if (ampCurve) {
-        return ampCurve;
+    if (ampCurveOnX) {
+        return ampCurveOnX;
     } else {
         return 0.;
     }
