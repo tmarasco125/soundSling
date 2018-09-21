@@ -44,6 +44,10 @@ h3 {
     .interface{
       color:rgb(247, 241, 241)
     }
+    .labelText{
+      font-size: 32pt;
+      font-family: 'Share', cursive;
+    }
     .overlay {
       height: 100%;
       width: 100%;

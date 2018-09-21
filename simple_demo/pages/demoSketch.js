@@ -3,7 +3,7 @@
    [Anthony T. Marasco - 2018]
 */
 
-var mgr, nexusDiv1, nexusDiv2, button, slider, client, context;
+var mgr, nexusDiv1, nexusDiv2, button, slider, client, context,labelLeft;
 var seatClicked = false;
 var curveCalc =[];
 
@@ -27,9 +27,10 @@ function setup() {
     nexusDiv2.class("interface");
     nexusDiv2.style('position', ((windowWidth / 2) - 505)+165, windowHeight/2-220);
 
+    
     //Build NexusUI Widget, add them to the div
     button = new Nexus.TextButton('#button', {
-        text: 'Start!',
+        text: 'Start',
         size: [400, 200]
     })
 
@@ -177,7 +178,7 @@ function PerformancePage() {
 
 
 // **************  Audio Elements *****************
-const player = new Tone.Player("/media/templeBell.mp3").toMaster();
+const player = new Tone.Player("/media/Toy_piano.wav").toMaster();
 //const delay = new Tone.FeedbackDelay(0.5, 0.10).toMaster();
 
 

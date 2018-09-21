@@ -1,9 +1,9 @@
 
-/* soundSling Demo Sketch - Multiple Slings, 1-Axis sound diffusion 
+/* SoundSling Demo Sketch - Multiple Slings, 1-Axis sound diffusion 
    [Anthony T. Marasco - 2018]
 */
 
-var mgr, nexusDiv1, nexusDiv2, button, position, client, context;
+var mgr, nexusDiv1, nexusDiv2,textDivFront,textDivBack, button, position, client, context;
 
 var curveCalc = [];
 var row = 1;
@@ -20,10 +20,19 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
     //***************  Nexus UI ******************
     //add NexusUI widgets to the P5 canvas
+    textDivFront = createDiv('Front Row');
+    textDivFront.id('labelFront');
+    textDivFront.class("labelText");
+    textDivFront.position(30, 20 + ((windowHeight / 2) - 300));
+
+    textDivBack = createDiv('Back Row');
+    textDivBack.class("labelText");
+    textDivBack.id('labelBack');
+    textDivBack.position(30,(8* 66) + ((windowHeight / 2) - 250));
 
     nexusDiv1 = createDiv(`<div id="button"></div>`);
     nexusDiv1.class("interface");
-    nexusDiv1.style('position', windowWidth / 2 - 200, windowHeight / 2 + 300);
+    nexusDiv1.style('position', windowWidth / 2 - 150, windowHeight / 2 + 300);
     nexusDiv1.style('color', "#FFF");
     nexusDiv2 = createDiv(`<div id="slider"></div>`);
     nexusDiv2.class("interface");
@@ -46,6 +55,8 @@ function setup() {
 
             document.getElementById('button').style.display = 'none';
             document.getElementById('slider').style.display = 'none';
+            document.getElementById("labelFront").style.display ='none';
+            document.getElementById("labelBack").style.display = 'none';
             mgr.showScene(PerformancePage);
             StartAudioContext(Tone.context, '#button').then(function () {
                 console.log("AudioStarted");
@@ -71,7 +82,7 @@ function setup() {
 
 
 
-    position.colorize("accent", "rgba(218,165,32,0.5)");//slightly transparent indicator
+    position.colorize("accent", "rgba(218,165,32,0.7)");//slightly transparent indicator
     position.colorize("fill", "rgba(0,0,0,0)");//transparent background for position slider
 
     position.on('change', function (v) {
@@ -211,12 +222,12 @@ function PerformancePage() {
 // **************  Audio Elements *****************
 const player = new Tone.Player({
     "url": "/media/Indian_Bell.mp3",
-    "loop": true
+    "loop": false
 }).toMaster();
 
 const player2 = new Tone.Player({
-    "url": "/media/templeBell.mp3",
-    "loop": true
+    "url": "/media/snare.mp3",
+    "loop": false
 }).toMaster();
 
 //const delay = new Tone.FeedbackDelay(0.5);

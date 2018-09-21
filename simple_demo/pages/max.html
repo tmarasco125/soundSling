@@ -20,13 +20,13 @@
             window.max.outlet('INIT Rhizome', rhizome.Client.isSupported());
             //init rhizome 
             client = new rhizome.Client();
-            window.max.outlet('Rhizome Status ', client.status());
+            window.max.outlet('SoundSling - Single Status: ', client.status());
          
 
             // `rhizome.start` is the first function that should be called. This is subscribing to ALL messages.
             // The function inside is executed once the client managed to connect.
             client.start(function(err) {
-                window.max.outlet('SoundSling Start Status ', client.status());
+                window.max.outlet('SoundSling Start Status: ', client.status());
                 client.send('/sys/subscribe', ['/'])
             });
             

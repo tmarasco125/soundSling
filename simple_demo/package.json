@@ -1,0 +1,14 @@
+{
+  "name": "simple_demo",
+  "version": "1.0.0",
+  "description": "fun",
+  "main": "config.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "rhizome config",
+    "start": "rhizome config"
+  },
+  "author": "Tony Marasconi",
+  "license": "ISC"
+}
